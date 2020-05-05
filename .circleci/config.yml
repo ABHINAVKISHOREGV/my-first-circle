@@ -6,12 +6,26 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
+      - run: mkdir -p my_workspace
+      - run: echo "" > my_workspace/out
+      - persist_to_workspace:
+            root: my_workspace
+            paths:
+              - out
   buildtwo:
     docker:
       - image: circleci/node:4.8.2
     steps:
       - checkout
       - run: echo "A second hello"
+      - attach_workspace:
+          at: my_workspace
+      - run: |
+          if [[ $(cat my_workspace/out) == "Trying out workspaces" ]]; then
+            echo "IT WORKED";
+          else
+            echo "NOPE!!!";
+          fi
 
 
 workflows:
@@ -19,5 +33,7 @@ workflows:
   one_and_two:
     jobs:
       - buildone
-      - buildtwo
+      - buildtwo:
+          requires:
+            - buildone
       
