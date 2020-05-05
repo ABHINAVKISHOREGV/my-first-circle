@@ -13,7 +13,7 @@ jobs:
       - persist_to_workspace:
             root: my_workspace
             paths:
-              - out
+               - out
   buildtwo:
     machine: true
     steps:
