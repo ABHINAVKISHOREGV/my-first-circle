@@ -8,8 +8,8 @@ jobs:
       - run: mkdir -p my_workspace
       - run: echo "Trying out workspaces" > my_workspace/out
       - run: echo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
-      - run: docker build -t ${DOCKER_USERNAME}/alpine:ci .
-      - run: docker push ${DOCKER_USERNAME}/alpine:ci
+      - run: docker build -t $DOCKER_USERNAME/alpine:ci .
+      - run: docker push $DOCKER_USERNAME/alpine:ci
       - persist_to_workspace:
             root: my_workspace
             paths:
@@ -20,10 +20,10 @@ jobs:
       - checkout
       - run: echo "A second hello"
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker pull ${DOCKER_USERNAME}/alpine:ci
+      - run: docker pull $DOCKER_USERNAME/alpine:ci
       - run: docker pull wagoodman/dive
       - run: export CI=true
-      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive:latest ${DOCKER_USERNAME}/alpine:ci
+      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive:latest $DOCKER_USERNAME/alpine:ci
       
 workflows:
   version: 2
