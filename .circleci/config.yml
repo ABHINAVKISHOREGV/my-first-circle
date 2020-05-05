@@ -8,7 +8,7 @@ jobs:
       - run: mkdir -p my_workspace
       - run: echo "Trying out workspaces" > my_workspace/out
       - run: |
-            docker login -u "abhinavkishoregv" -p "P@$$W0RD@123"
+            docker login -u "abhinavkishoregv" -p "@Kis#0r3"
             docker build -t abhinavkishoregv/alpine:ci .
             docker push abhinavkishoregv/alpine:ci
       - persist_to_workspace:
