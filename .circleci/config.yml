@@ -21,6 +21,7 @@ jobs:
       - attach_workspace:
             at: my_workspace
       - run: echo "A second hello"
+      - run: git --version
       - run: docker load -i my_workspace/abhinav-alpine.tar
       - run: docker images
       - run: docker pull wagoodman/dive
