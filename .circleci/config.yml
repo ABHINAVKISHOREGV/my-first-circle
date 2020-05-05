@@ -14,7 +14,7 @@ jobs:
               - out
   buildtwo:
     docker:
-      - image: alpine:latest
+      - image: ubuntu:latest
     steps:
       - checkout
       - run: echo "A second hello"
@@ -24,7 +24,7 @@ jobs:
           if [[ $(cat my_workspace/out) == "Trying out workspaces" ]]; then
             echo "IT WORKED";
           else
-            echo "NOPE!!!";
+            echo "NOPE!!!"; exit 1
           fi
 workflows:
   version: 2
