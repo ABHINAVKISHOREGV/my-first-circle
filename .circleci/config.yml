@@ -22,10 +22,10 @@ jobs:
       - run: echo "A second hello"
       - run: docker login -u "abhinavkishoregv" -p "@Kis#0r3"
       - run: docker pull abhinavkishoregv/alpine:ci
-      - run: docker run -d --rm -it --name alpine-1 abhinavkishoregv/alpine:ci sh
-      - run: docker ps -a
-      - run: docker exec -d alpine-1 echo "IT worked"
-      - run: docker stop alpine-1
+      - run: docker pull quay.io/wagoodman/dive
+      - run: export CI=true
+      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest abhinavkishore/alpine:ci
+      
 workflows:
   version: 2
   one_and_two:
