@@ -22,7 +22,8 @@ jobs:
       - run: echo "A second hello"
       - run: docker login -u "abhinavkishoregv" -p "@Kis#0r3"
       - run: docker pull abhinavkishoregv/alpine:ci
-      - run: docker run --rm --name alpine-1 abhinavkishoregv/alpine:ci 
+      - run: docker run -d --rm --name alpine-1 abhinavkishoregv/alpine:ci 
+      - run: docker ps -a
       - run: docker exec -d alpine-1 echo "IT worked"
       - run: docker stop alpine-1
 workflows:
