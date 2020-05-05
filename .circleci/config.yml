@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: echo "A first hello"
       - run: mkdir -p my_workspace
-      - run: echo "" > my_workspace/out
+      - run: echo "Trying out workspaces" > my_workspace/out
       - persist_to_workspace:
             root: my_workspace
             paths:
@@ -24,7 +24,7 @@ jobs:
           if [[ $(cat my_workspace/out) == "Trying out workspaces" ]]; then
             echo "IT WORKED";
           else
-            echo "NOPE!!!";
+            echo "NOPE!!!"; exit 1
           fi
 
 
