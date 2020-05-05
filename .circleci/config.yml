@@ -7,23 +7,22 @@ jobs:
       - run: echo "A first hello"
       - run: mkdir -p my_workspace
       - run: echo "Trying out workspaces" > my_workspace/out
-      - run: echo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
-      - run: docker build -t $DOCKER_USERNAME/abhinav-alpine:ci .
-      - run: docker push $DOCKER_USERNAME/abhinav-alpine:ci
+      - run: docker build -t abhinav-alpine:ci .
+      - run: docker save -o abhinav-alpine.tar abhinav-alpine:ci
       - persist_to_workspace:
             root: my_workspace
             paths:
                - out
+               - abhinav-alpine.tar
   buildtwo:
     machine: true
     steps:
       - checkout
+      - attach_to_workspace:
+         at: my_workspace
       - run: echo "A second hello"
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker pull $DOCKER_USERNAME/abhinav-alpine:ci
       - run: docker pull wagoodman/dive
-      - run: export CI=true
-      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive:latest $DOCKER_USERNAME/abhinav-alpine:ci
+      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive my_workspace/abhinav-alpine:ci
       
 workflows:
   version: 2
