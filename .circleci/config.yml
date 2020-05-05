@@ -24,7 +24,7 @@ jobs:
       - run: docker pull abhinavkishoregv/alpine:ci
       - run: docker pull wagoodman/dive
       - run: export CI=true
-      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock --ci-config=true wagoodman/dive:latest abhinavkishoregv/alpine:ci
+      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive:latest abhinavkishoregv/alpine:ci
       
 workflows:
   version: 2
