@@ -18,7 +18,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - attach_to_workspace:
+      - attach_workspace:
          at: my_workspace
       - run: echo "A second hello"
       - run: docker pull wagoodman/dive
