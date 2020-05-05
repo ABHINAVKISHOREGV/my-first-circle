@@ -21,11 +21,13 @@ jobs:
       - attach_workspace:
             at: my_workspace
       - run: echo "A second hello"
-      - run: git --version
       - run: docker load -i my_workspace/abhinav-alpine.tar
-      - run: docker images
-      - run: docker pull wagoodman/dive
-      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive abhinav-alpine:ci
+      - run: git clone https://github.com/tern-tools/tern.git my_workspace/
+      - run: python3 -m venv my_workspace/ternenv
+      - run: source my_workspace/ternenv/bin/activate
+      - run: pip install tern
+      - run: tern report -o my_workspace/a-a-report.txt -i abhinav-alpine:ci
+      
       
 workflows:
   version: 2
