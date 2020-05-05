@@ -7,7 +7,7 @@ jobs:
       - run: echo "A first hello"
       - run: mkdir -p my_workspace
       - run: echo "Trying out workspaces" > my_workspace/out
-      - run: echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin 
+      - run: echo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
       - run: docker build -t ${DOCKER_USERNAME}/alpine:ci .
       - run: docker push ${DOCKER_USERNAME}/alpine:ci
       - persist_to_workspace:
