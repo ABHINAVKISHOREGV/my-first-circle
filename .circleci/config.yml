@@ -21,8 +21,9 @@ jobs:
       - attach_workspace:
          at: my_workspace
       - run: echo "A second hello"
-      - run: docker pull wagoodman/dive
-      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive my_workspace/abhinav-alpine:ci
+      - run: docker images
+#       - run: docker pull wagoodman/dive
+#       - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive abhinav-alpine:ci
       
 workflows:
   version: 2
