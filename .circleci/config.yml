@@ -8,7 +8,7 @@ jobs:
       - run: mkdir -p my_workspace
       - run: echo "Trying out workspaces" > my_workspace/out
       - run: docker build -t abhinav-alpine:ci .
-      - run: docker save -o abhinav-alpine.tar abhinav-alpine:ci
+      - run: docker save -o my_workspace/abhinav-alpine.tar abhinav-alpine:ci
       - persist_to_workspace:
             root: my_workspace
             paths:
@@ -19,11 +19,11 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-         at: my_workspace
+            at: my_workspace
       - run: echo "A second hello"
       - run: docker load -i my_workspace/abhinav-alpine.tar
       - run: docker pull wagoodman/dive
-      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive abhinav-alpine:ci
+      - run: docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive abhinav-alpine
       
 workflows:
   version: 2
