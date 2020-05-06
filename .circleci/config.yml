@@ -24,8 +24,8 @@ jobs:
       - run: echo "A second hello"
       - run: docker load -i my_workspace/abhinav-alpine.tar
       - run: git clone https://github.com/tern-tools/tern.git
-      - run: docker build -t ternd .
-      - run: ./docker_run.sh workdir ternd "report -i debian:buster" >> my_workspace/output.txt
+      - run: docker build -t ternd tern/
+      - run: sh tern/docker_run.sh workdir ternd "report -i debian:buster" >> my_workspace/output.txt
       
       
 workflows:
