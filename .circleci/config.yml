@@ -26,7 +26,7 @@ jobs:
       - run: git clone https://github.com/tern-tools/tern.git
       - run: docker build -t ternd tern/
       - run: sh tern/docker_run.sh workdir ternd "report -i debian:buster" >> my_workspace/output.txt
-      - run: cat my_workspace/outout.txt
+      - run: cat my_workspace/output.txt
       
       
 workflows:
