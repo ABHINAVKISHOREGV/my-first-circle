@@ -24,7 +24,7 @@ jobs:
       - run: docker load -i my_workspace/abhinav-alpine.tar
       - run: git clone https://github.com/tern-tools/tern.git my_workspace/tern-tools/
       - run: pip install virtualenv
-      - run: python -m venv my_workspace/ternenv
+      - run: python -m virtualenv my_workspace/ternenv
       - run: source my_workspace/ternenv/bin/activate
       - run: pip install tern
       - run: tern report -o my_workspace/a-a-report.txt -i abhinav-alpine:ci
