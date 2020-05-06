@@ -5,7 +5,7 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
-      - run: mkdir -p my_workspace
+      - run: mkdir -p my_workspace && touch output.txt
       - run: echo "Trying out workspaces" > my_workspace/out
       - run: docker build -t abhinav-alpine:ci .
       - run: docker save -o my_workspace/abhinav-alpine.tar abhinav-alpine:ci
@@ -14,6 +14,7 @@ jobs:
             paths:
                - out
                - abhinav-alpine.tar
+               - output.txt
   buildtwo:
     machine: true
     steps:
@@ -22,12 +23,9 @@ jobs:
             at: my_workspace
       - run: echo "A second hello"
       - run: docker load -i my_workspace/abhinav-alpine.tar
-      - run: git clone https://github.com/tern-tools/tern.git my_workspace/tern-tools/
-      - run: pip install virtualenv
-      - run: python -m virtualenv my_workspace/ternenv
-      - run: source my_workspace/ternenv/bin/activate
-      - run: pip install tern
-      - run: tern report -o my_workspace/a-a-report.txt -i abhinav-alpine:ci
+      - run: git clone https://github.com/tern-tools/tern.git
+      - run: docker build -t ternd .
+      - run: ./docker_run.sh workdir ternd "report -i debian:buster" >> my_workspace/output.txt
       
       
 workflows:
